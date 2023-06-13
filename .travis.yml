@@ -13,3 +13,9 @@ after_sucess:
   - docker build -t jmuneton/multi-nginx ./nginx
   - docker build -t jmuneton/multi-server ./server
   - docker build -t jmuneton/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push jmuneton/multi-client
+  - docker push jmuneton/multi-nginx
+  - docker push jmuneton/multi-server
+  - docker push jmuneton/multi-worker
+  
