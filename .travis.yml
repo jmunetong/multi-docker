@@ -1,0 +1,15 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t jmuneton/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true jmuneton/react-test npm test
+
+after_sucess:
+  - docker build -t jmuneton/multi-client  ./client
+  - docker build -t jmuneton/multi-nginx ./nginx
+  - docker build -t jmuneton/multi-server ./server
+  - docker build -t jmuneton/multi-worker ./worker
